@@ -107,40 +107,38 @@ describe('Jltools', function(){
 			context('when $output file is not exists', function(){
 				it('create the file for you', function(){
 					allow('file_exists')->toBeCalled()->andReturn(false);
-					$output = 'sample_write.jl';
-					allow($this->jltools)->toReceive('combine');
-					expect('file_put_contents')->toBeCalled()->with($output);
+					allow($this->jltools)->toReceive('add');
+					expect('file_put_contents')->toBeCalled()->with($this->output);
 
-					$this->jltools->addFieldToJson('', '', $output, '');
+					$this->jltools->addFieldToJson('', '', $this->output, '');
 				});
 			});
 
 			context('when $output file is ready to be written', function(){
 				it('add field to json', function(){
 					expect($this->jltools)->toReceive('add');
-					$this->jltools->addFieldToJson('category', ['A'],'sample_write.jl', $this->line);
+					$this->jltools->addFieldToJson('category', ['A'], $this->output, $this->line);
 				});
 
 				it('write json into $output file', function(){
 					$new = '{}';
-					$output = 'sample_write.jl';
 
 					allow('json_encode')->toBeCalled()->andReturn($new);
 
-					expect($this->jltools)->toReceive('writeLine')->with($new, $output);
+					expect($this->jltools)->toReceive('writeLine')->with($new, $this->output);
 
-					$this->jltools->addFieldToJson('category', ['A'],'sample_write.jl', $this->line);
+					$this->jltools->addFieldToJson('category', ['A'], $this->output, $this->line);
 				});
+			});
+
+			afterAll(function(){
+				unlink($this->output);
 			});
 		});
 
 		describe('->writeLine($data, $output)', function(){
 			given('data', function(){
 				return json_encode(['a' => 'b']);
-			});
-
-			given('output', function(){
-				return 'new_sample.jl';
 			});
 
 			context('when $output file is not exists', function(){
