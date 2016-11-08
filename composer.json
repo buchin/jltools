@@ -2,7 +2,7 @@
 	"name": "buchin/jltools",
 	"description": "Helper for interacting with JSON Lines",
 	"license": "Halal",
-	"keywords": ["JSON, JSON Lines, JL"],
+	"keywords": ["JSON", "JSON Lines", "JL"],
 	"authors": [
 		{
 			"name": "Mochammad Masbuchin",
