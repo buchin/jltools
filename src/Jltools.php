@@ -7,11 +7,6 @@ class Jltools
 {
 	private $path;
 	private $output;
-	
-	function __construct()
-	{
-		# code...
-	}
 
 	public function setPath($path = null)
 	{
